@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Usuario</title>
+</h:head> 
+<body> 
+	
+	<h1>Gestion de Usuarios</h1>
+	
+	<hr />
+	<h:form>
+		<h:outputLabel value="Nombre: " />
+		<h:inputText id="name" value="#{userBean.name}" />
+		<br></br>
+		
+		<h:outputLabel value="Apellido: " />
+		<h:inputText id="lastName" value="#{userBean.lastName}" />
+		<br></br>
+		
+		<h:outputLabel value="Direccion: " />
+		<h:inputText id="address" value="#{userBean.address}" />
+		<br></br>
+		
+		<h:outputLabel value="Cedula: " />
+		<h:inputText id="idCard" value="#{userBean.idCard}" />
+		<br></br>
+		
+		<h:outputLabel value="Rol: " />
+		<h:inputText id="role" value="#{userBean.role}" />
+		<br></br>
+
+		<h:commandButton action="#{userBean.addUser()}" value="Crear" />
+		
+		<br></br>
+		
+		
+	</h:form>
+
+</body> 
+</html>

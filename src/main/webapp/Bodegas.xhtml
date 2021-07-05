@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Gestion de Bodegas</title>
+</h:head> 
+<body> 
+
+	<h1>Gestion de Bodegas</h1>
+	
+	<hr />
+	<h:form>
+		<h:outputLabel value="Nombre: " />
+		<h:inputText id="name" value="#{bodegaBean.name}" />
+		<br></br>
+		
+		<h:outputLabel value="Direccion: " />
+		<h:inputText id="address" value="#{bodegaBean.address}" />
+		
+		<h:commandButton action="#{bodegaBean.addBodega()}" value="Crear Bodega" />
+		<br></br>
+	</h:form>
+
+</body> 
+</html>
