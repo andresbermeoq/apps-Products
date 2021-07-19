@@ -10,10 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
-
-import org.primefaces.model.DualListModel;
 
 import ec.edu.ups.ejb.DetalleFacade;
 import ec.edu.ups.ejb.ProductoFacade;
