@@ -2,6 +2,7 @@ package ec.edu.ups.entidad;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -23,14 +24,23 @@ public class Factura_Cabecera implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+	@Column(name="\"IVA\"")
+	private BigDecimal iva;
+
+	@Column(name="\"Subtotal\"")
+	private BigDecimal subtotal;
+
+	@Column(name="\"Total\"")
+	private BigDecimal total;
 
 	//bi-directional many-to-one association to Factura_Detalle
 	@OneToMany(mappedBy="facturaCabecera")
 	private List<Factura_Detalle> facturaDetalles;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	public Factura_Cabecera() {
 	}
@@ -51,12 +61,28 @@ public class Factura_Cabecera implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public BigDecimal getIva() {
+		return this.iva;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setIva(BigDecimal iva) {
+		this.iva = iva;
+	}
+
+	public BigDecimal getSubtotal() {
+		return this.subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public BigDecimal getTotal() {
+		return this.total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 
 	public List<Factura_Detalle> getFacturaDetalles() {
@@ -79,6 +105,14 @@ public class Factura_Cabecera implements Serializable {
 		facturaDetalle.setFacturaCabecera(null);
 
 		return facturaDetalle;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

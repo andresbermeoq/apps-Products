@@ -23,6 +23,9 @@ public class Producto implements Serializable {
 	@Column(name="category_product")
 	private String categoryProduct;
 
+	@Column(name="id_bodega")
+	private Integer idBodega;
+
 	private String name;
 
 	private BigDecimal price;
@@ -33,21 +36,7 @@ public class Producto implements Serializable {
 	@OneToMany(mappedBy="producto")
 	private List<Factura_Detalle> facturaDetalles;
 
-	//bi-directional many-to-one association to Bodega
-	@ManyToOne
-	@JoinColumn(name="id_bodega")
-	private Bodega bodega;
-
 	public Producto() {
-	}
-	
-	public Producto(String categoryProduct, String name, BigDecimal price, Integer stock, Bodega bodega) {
-		super();
-		this.categoryProduct = categoryProduct;
-		this.name = name;
-		this.price = price;
-		this.stock = stock;
-		this.bodega = bodega;
 	}
 
 	public Integer getId() {
@@ -64,6 +53,14 @@ public class Producto implements Serializable {
 
 	public void setCategoryProduct(String categoryProduct) {
 		this.categoryProduct = categoryProduct;
+	}
+
+	public Integer getIdBodega() {
+		return this.idBodega;
+	}
+
+	public void setIdBodega(Integer idBodega) {
+		this.idBodega = idBodega;
 	}
 
 	public String getName() {
@@ -110,14 +107,6 @@ public class Producto implements Serializable {
 		facturaDetalle.setProducto(null);
 
 		return facturaDetalle;
-	}
-
-	public Bodega getBodega() {
-		return this.bodega;
-	}
-
-	public void setBodega(Bodega bodega) {
-		this.bodega = bodega;
 	}
 
 }

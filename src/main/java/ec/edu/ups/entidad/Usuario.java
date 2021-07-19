@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	private String address;
@@ -37,16 +37,6 @@ public class Usuario implements Serializable {
 
 	public Usuario() {
 	}
-	
-	public Usuario(String address, String idCard, String lastName, String name, String role) {
-		super();
-		this.address = address;
-		this.idCard = idCard;
-		this.lastName = lastName;
-		this.name = name;
-		this.role = role;
-	}
-
 
 	public Integer getId() {
 		return this.id;

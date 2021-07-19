@@ -2,7 +2,6 @@ package ec.edu.ups.entidad;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -18,15 +17,6 @@ public class Factura_Detalle implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(name="value_iva")
-	private BigDecimal valueIva;
-
-	@Column(name="value_total")
-	private BigDecimal valueTotal;
-
-	@Column(name="value_unitary")
-	private BigDecimal valueUnitary;
 
 	//bi-directional many-to-one association to Factura_Cabecera
 	@ManyToOne
@@ -47,30 +37,6 @@ public class Factura_Detalle implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public BigDecimal getValueIva() {
-		return this.valueIva;
-	}
-
-	public void setValueIva(BigDecimal valueIva) {
-		this.valueIva = valueIva;
-	}
-
-	public BigDecimal getValueTotal() {
-		return this.valueTotal;
-	}
-
-	public void setValueTotal(BigDecimal valueTotal) {
-		this.valueTotal = valueTotal;
-	}
-
-	public BigDecimal getValueUnitary() {
-		return this.valueUnitary;
-	}
-
-	public void setValueUnitary(BigDecimal valueUnitary) {
-		this.valueUnitary = valueUnitary;
 	}
 
 	public Factura_Cabecera getFacturaCabecera() {

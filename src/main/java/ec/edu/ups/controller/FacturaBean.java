@@ -162,10 +162,4 @@ public class FacturaBean implements Serializable {
 		productosDetalles.add(productoList);
 	}
 	
-
-	
-
-	
-	
-
 }
