@@ -17,8 +17,7 @@ public class Factura_Cabecera implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="FACTURA_CABECERA_ID_GENERATOR", sequenceName="FACTURA_CABECERA_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FACTURA_CABECERA_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)

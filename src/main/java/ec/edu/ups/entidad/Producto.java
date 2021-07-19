@@ -17,8 +17,7 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PRODUCTOS_ID_GENERATOR", sequenceName="PRODUCTOS_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PRODUCTOS_ID_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name="category_product")
@@ -40,6 +39,15 @@ public class Producto implements Serializable {
 	private Bodega bodega;
 
 	public Producto() {
+	}
+	
+	public Producto(String categoryProduct, String name, BigDecimal price, Integer stock, Bodega bodega) {
+		super();
+		this.categoryProduct = categoryProduct;
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+		this.bodega = bodega;
 	}
 
 	public Integer getId() {

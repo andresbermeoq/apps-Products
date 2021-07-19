@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>Facturacion</title>
+</h:head> 
+<body> 
+
+	<h1>Facturacion</h1>
+	
+	<h2>Seleccion del Cliente</h2>
+	
+	<h:selectOneMenu value="#{facturaBean.idUser}">
+		<f:selectItems value="#{facturaBean.usuarios}" var="u" itemValue="#{u.id}" itemLabel="#{u.name}"/>
+	</h:selectOneMenu>
+	<br></br>
+	
+	<h:outputLabel value="Fecha: " />
+	<h:inputText id="date" value="#{facturaBean.fecha}" />
+	<br></br>
+	
+	<h2>Seleccion de los productos</h2>
+	
+	<h:outputLabel value="Fecha: " />
+	<h:outputLabel id="price" value="#{facturaBean.valueTotal}" />
+	<br></br>
+	
+	
+	<h:form>
+		<h5>Busqueda del Producto</h5>
+		
+		<p:inputText value="#{facturaBean.idProduct}" placeholder="Ingrese el producto"/>
+		<h:commandButton action="#{facturaBean.searchProduct()}" value="Buscar"/>
+		
+		<h:outputText value="#{facturaBean.productoList.name}" />
+		
+		<div class="card">
+		<h5>Seleccion de Productos</h5>
+		
+		<p:dataTable value="#{facturaBean.productosDetalles}" var="producto">
+		
+			<f:facet name="header" >
+				<div>
+					<span>Lista de Productos</span>
+				</div>
+			</f:facet>
+		
+			<p:column headerText="Nombre">
+				<h:outputText value="#{producto.name}"/>
+			</p:column>
+			
+			<p:column headerText="Bodega">
+				<h:outputText value="#{producto.bodega.name}"/>
+			</p:column>
+			
+			<p:column headerText="Precio">
+				<h:outputText value="#{producto.price}"/>
+			</p:column>
+			
+			<p:column headerText="Stock">
+				<h:outputText value="#{producto.stock}"/>
+			</p:column>
+		
+		</p:dataTable>
+	
+	</div>
+		
+		
+		
+		
+	</h:form>
+	
+	
+	
+	
+</body> 
+</html>

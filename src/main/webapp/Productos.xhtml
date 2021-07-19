@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Gestion de Productos</title>
+</h:head> 
+<body> 
+
+	<h1>Gestion de Productos</h1>
+	
+	<hr />
+	<h:form>
+		<h:outputLabel value="Nombre: " />
+		<h:inputText id="name" value="#{productoBean.name}" />
+		<br></br>
+		
+		<h:outputLabel value="Categoria: " />
+		<h:inputText id="category" value="#{productoBean.categoryProduct}" />
+		<br></br>
+		
+		<h:outputLabel value="Precio: " />
+		<h:inputText id="price" value="#{productoBean.price}" />
+		<br></br>
+		
+		<h:outputLabel value="Stock: " />
+		<h:inputText id="stock" value="#{productoBean.stock}" />
+		<br></br>
+		
+		<h2>Selecciona la Bodega</h2>
+		<h:selectOneMenu value="#{productoBean.idBodega}">
+			<f:selectItems value="#{productoBean.bodegas}" var="p" itemValue="#{p.id}" itemLabel="#{p.name}" />
+		</h:selectOneMenu>
+		
+		<br></br>
+		
+		<h:commandButton action="#{productoBean.addProduct()}" value="Crear" />
+		
+		
+	</h:form>
+
+</body> 
+</html>
