@@ -8,13 +8,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the "Factura_Cabecera" database table.
+ * The persistent class for the "Cabecera_Factura" database table.
  * 
  */
 @Entity
-@Table(name="\"Factura_Cabecera\"")
-@NamedQuery(name="Factura_Cabecera.findAll", query="SELECT f FROM Factura_Cabecera f")
-public class Factura_Cabecera implements Serializable {
+@Table(name="\"Cabecera_Factura\"")
+@NamedQuery(name="Cabecera_Factura.findAll", query="SELECT c FROM Cabecera_Factura c")
+public class Cabecera_Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,6 +22,7 @@ public class Factura_Cabecera implements Serializable {
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name="\"Fecha\"")
 	private Date fecha;
 
 	@Column(name="\"IVA\"")
@@ -33,16 +34,16 @@ public class Factura_Cabecera implements Serializable {
 	@Column(name="\"Total\"")
 	private BigDecimal total;
 
-	//bi-directional many-to-one association to Factura_Detalle
-	@OneToMany(mappedBy="facturaCabecera")
-	private List<Factura_Detalle> facturaDetalles;
-
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"idUsuario\"")
 	private Usuario usuario;
 
-	public Factura_Cabecera() {
+	//bi-directional many-to-one association to Factura_Detalle
+	@OneToMany(mappedBy="cabeceraFactura")
+	private List<Factura_Detalle> facturaDetalles;
+
+	public Cabecera_Factura() {
 	}
 
 	public Integer getId() {
@@ -85,6 +86,14 @@ public class Factura_Cabecera implements Serializable {
 		this.total = total;
 	}
 
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public List<Factura_Detalle> getFacturaDetalles() {
 		return this.facturaDetalles;
 	}
@@ -95,24 +104,16 @@ public class Factura_Cabecera implements Serializable {
 
 	public Factura_Detalle addFacturaDetalle(Factura_Detalle facturaDetalle) {
 		getFacturaDetalles().add(facturaDetalle);
-		facturaDetalle.setFacturaCabecera(this);
+		facturaDetalle.setCabeceraFactura(this);
 
 		return facturaDetalle;
 	}
 
 	public Factura_Detalle removeFacturaDetalle(Factura_Detalle facturaDetalle) {
 		getFacturaDetalles().remove(facturaDetalle);
-		facturaDetalle.setFacturaCabecera(null);
+		facturaDetalle.setCabeceraFactura(null);
 
 		return facturaDetalle;
-	}
-
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }

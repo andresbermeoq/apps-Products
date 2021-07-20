@@ -18,6 +18,7 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String address;
+	private String email;
 	private String idCard;
 	private String lastName;
 	private String name;
@@ -77,10 +78,17 @@ public class UserBean implements Serializable {
 	public void setUserFacade(UserFacade userFacade) {
 		this.userFacade = userFacade;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public String addUser() {
-		userFacade.create(new Usuario(address, idCard, lastName, name, role));
+		userFacade.create(new Usuario(address, email, idCard, lastName, name, role));
 		return null;
 	}
 	

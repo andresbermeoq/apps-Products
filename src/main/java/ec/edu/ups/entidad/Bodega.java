@@ -2,14 +2,15 @@ package ec.edu.ups.entidad;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
- * The persistent class for the "Bodegas" database table.
+ * The persistent class for the "Bodega" database table.
  * 
  */
 @Entity
-@Table(name="\"Bodegas\"")
+@Table(name="\"Bodega\"")
 @NamedQuery(name="Bodega.findAll", query="SELECT b FROM Bodega b")
 public class Bodega implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,10 @@ public class Bodega implements Serializable {
 	private String address;
 
 	private String name;
+
+	//bi-directional many-to-one association to Producto
+	@OneToMany(mappedBy="bodega")
+	private List<Producto> productos;
 
 	public Bodega() {
 	}
@@ -53,6 +58,28 @@ public class Bodega implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Producto> getProductos() {
+		return this.productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public Producto addProducto(Producto producto) {
+		getProductos().add(producto);
+		producto.setBodega(this);
+
+		return producto;
+	}
+
+	public Producto removeProducto(Producto producto) {
+		getProductos().remove(producto);
+		producto.setBodega(null);
+
+		return producto;
 	}
 
 }

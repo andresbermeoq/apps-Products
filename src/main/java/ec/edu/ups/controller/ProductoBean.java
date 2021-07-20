@@ -94,20 +94,10 @@ public class ProductoBean implements Serializable {
 		this.idBodega = idBodega;
 	}
 	
-	
-	
 	public String addProduct() {
 		bodega = bodegaFacade.find(Integer.valueOf(idBodega));
 		productoFacade.create(new Producto(categoryProduct, name, price, stock, bodega));
 		return null;
 	}
-
-
-	
-
-
-	
-	
-	
 
 }

@@ -7,8 +7,10 @@
 					  transaction-type="JTA">
 		<jta-data-source>jdbc/__Products</jta-data-source>
 		<class>ec.edu.ups.entidad.Bodega</class>
-		<class>ec.edu.ups.entidad.Factura_Cabecera</class>
+		<class>ec.edu.ups.entidad.Cabecera_Factura</class>
 		<class>ec.edu.ups.entidad.Factura_Detalle</class>
+		<class>ec.edu.ups.entidad.Pedidos_Cabecera</class>
+		<class>ec.edu.ups.entidad.Pedidos_Detalle</class>
 		<class>ec.edu.ups.entidad.Producto</class>
 		<class>ec.edu.ups.entidad.Usuario</class>
 	</persistence-unit>

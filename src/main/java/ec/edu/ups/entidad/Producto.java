@@ -20,11 +20,8 @@ public class Producto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="category_product")
+	@Column(name="\"categoryProduct\"")
 	private String categoryProduct;
-
-	@Column(name="id_bodega")
-	private Integer idBodega;
 
 	private String name;
 
@@ -36,8 +33,27 @@ public class Producto implements Serializable {
 	@OneToMany(mappedBy="producto")
 	private List<Factura_Detalle> facturaDetalles;
 
+	//bi-directional many-to-one association to Pedidos_Detalle
+	@OneToMany(mappedBy="producto")
+	private List<Pedidos_Detalle> pedidosDetalles;
+
+	//bi-directional many-to-one association to Bodega
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"id_Bodega\"")
+	private Bodega bodega;
+
 	public Producto() {
 	}
+
+	public Producto(String categoryProduct, String name, BigDecimal price, Integer stock, Bodega bodega) {
+		super();
+		this.categoryProduct = categoryProduct;
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+		this.bodega = bodega;
+	}
+
 
 	public Integer getId() {
 		return this.id;
@@ -53,14 +69,6 @@ public class Producto implements Serializable {
 
 	public void setCategoryProduct(String categoryProduct) {
 		this.categoryProduct = categoryProduct;
-	}
-
-	public Integer getIdBodega() {
-		return this.idBodega;
-	}
-
-	public void setIdBodega(Integer idBodega) {
-		this.idBodega = idBodega;
 	}
 
 	public String getName() {
@@ -107,6 +115,36 @@ public class Producto implements Serializable {
 		facturaDetalle.setProducto(null);
 
 		return facturaDetalle;
+	}
+
+	public List<Pedidos_Detalle> getPedidosDetalles() {
+		return this.pedidosDetalles;
+	}
+
+	public void setPedidosDetalles(List<Pedidos_Detalle> pedidosDetalles) {
+		this.pedidosDetalles = pedidosDetalles;
+	}
+
+	public Pedidos_Detalle addPedidosDetalle(Pedidos_Detalle pedidosDetalle) {
+		getPedidosDetalles().add(pedidosDetalle);
+		pedidosDetalle.setProducto(this);
+
+		return pedidosDetalle;
+	}
+
+	public Pedidos_Detalle removePedidosDetalle(Pedidos_Detalle pedidosDetalle) {
+		getPedidosDetalles().remove(pedidosDetalle);
+		pedidosDetalle.setProducto(null);
+
+		return pedidosDetalle;
+	}
+
+	public Bodega getBodega() {
+		return this.bodega;
+	}
+
+	public void setBodega(Bodega bodega) {
+		this.bodega = bodega;
 	}
 
 }

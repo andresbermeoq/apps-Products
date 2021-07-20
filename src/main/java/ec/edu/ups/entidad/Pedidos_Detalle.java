@@ -5,30 +5,30 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the "Factura_Detalle" database table.
+ * The persistent class for the "Pedidos_Detalles" database table.
  * 
  */
 @Entity
-@Table(name="\"Factura_Detalle\"")
-@NamedQuery(name="Factura_Detalle.findAll", query="SELECT f FROM Factura_Detalle f")
-public class Factura_Detalle implements Serializable {
+@Table(name="\"Pedidos_Detalles\"")
+@NamedQuery(name="Pedidos_Detalle.findAll", query="SELECT p FROM Pedidos_Detalle p")
+public class Pedidos_Detalle implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	//bi-directional many-to-one association to Cabecera_Factura
+	//bi-directional many-to-one association to Pedidos_Cabecera
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="\"id_Cabecera_Productos\"")
-	private Cabecera_Factura cabeceraFactura;
+	@JoinColumn(name="\"id_Cabecera\"")
+	private Pedidos_Cabecera pedidosCabecera;
 
 	//bi-directional many-to-one association to Producto
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="\"id_Productos\"")
 	private Producto producto;
 
-	public Factura_Detalle() {
+	public Pedidos_Detalle() {
 	}
 
 	public Integer getId() {
@@ -39,12 +39,12 @@ public class Factura_Detalle implements Serializable {
 		this.id = id;
 	}
 
-	public Cabecera_Factura getCabeceraFactura() {
-		return this.cabeceraFactura;
+	public Pedidos_Cabecera getPedidosCabecera() {
+		return this.pedidosCabecera;
 	}
 
-	public void setCabeceraFactura(Cabecera_Factura cabeceraFactura) {
-		this.cabeceraFactura = cabeceraFactura;
+	public void setPedidosCabecera(Pedidos_Cabecera pedidosCabecera) {
+		this.pedidosCabecera = pedidosCabecera;
 	}
 
 	public Producto getProducto() {

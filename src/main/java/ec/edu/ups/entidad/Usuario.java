@@ -6,11 +6,11 @@ import java.util.List;
 
 
 /**
- * The persistent class for the "Usuarios" database table.
+ * The persistent class for the "Usuario" database table.
  * 
  */
 @Entity
-@Table(name="\"Usuarios\"")
+@Table(name="\"Usuario\"")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,7 +21,9 @@ public class Usuario implements Serializable {
 
 	private String address;
 
-	@Column(name="id_card")
+	private String email;
+
+	@Column(name="\"idCard\"")
 	private String idCard;
 
 	@Column(name="last_name")
@@ -31,11 +33,25 @@ public class Usuario implements Serializable {
 
 	private String role;
 
-	//bi-directional many-to-one association to Factura_Cabecera
+	//bi-directional many-to-one association to Cabecera_Factura
 	@OneToMany(mappedBy="usuario")
-	private List<Factura_Cabecera> facturaCabeceras;
+	private List<Cabecera_Factura> cabeceraFacturas;
+
+	//bi-directional many-to-one association to Pedidos_Cabecera
+	@OneToMany(mappedBy="usuario")
+	private List<Pedidos_Cabecera> pedidosCabeceras;
 
 	public Usuario() {
+	}
+
+	public Usuario(String address, String email, String idCard, String lastName, String name, String role) {
+		super();
+		this.address = address;
+		this.email = email;
+		this.idCard = idCard;
+		this.lastName = lastName;
+		this.name = name;
+		this.role = role;
 	}
 
 	public Integer getId() {
@@ -52,6 +68,14 @@ public class Usuario implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getIdCard() {
@@ -86,26 +110,48 @@ public class Usuario implements Serializable {
 		this.role = role;
 	}
 
-	public List<Factura_Cabecera> getFacturaCabeceras() {
-		return this.facturaCabeceras;
+	public List<Cabecera_Factura> getCabeceraFacturas() {
+		return this.cabeceraFacturas;
 	}
 
-	public void setFacturaCabeceras(List<Factura_Cabecera> facturaCabeceras) {
-		this.facturaCabeceras = facturaCabeceras;
+	public void setCabeceraFacturas(List<Cabecera_Factura> cabeceraFacturas) {
+		this.cabeceraFacturas = cabeceraFacturas;
 	}
 
-	public Factura_Cabecera addFacturaCabecera(Factura_Cabecera facturaCabecera) {
-		getFacturaCabeceras().add(facturaCabecera);
-		facturaCabecera.setUsuario(this);
+	public Cabecera_Factura addCabeceraFactura(Cabecera_Factura cabeceraFactura) {
+		getCabeceraFacturas().add(cabeceraFactura);
+		cabeceraFactura.setUsuario(this);
 
-		return facturaCabecera;
+		return cabeceraFactura;
 	}
 
-	public Factura_Cabecera removeFacturaCabecera(Factura_Cabecera facturaCabecera) {
-		getFacturaCabeceras().remove(facturaCabecera);
-		facturaCabecera.setUsuario(null);
+	public Cabecera_Factura removeCabeceraFactura(Cabecera_Factura cabeceraFactura) {
+		getCabeceraFacturas().remove(cabeceraFactura);
+		cabeceraFactura.setUsuario(null);
 
-		return facturaCabecera;
+		return cabeceraFactura;
+	}
+
+	public List<Pedidos_Cabecera> getPedidosCabeceras() {
+		return this.pedidosCabeceras;
+	}
+
+	public void setPedidosCabeceras(List<Pedidos_Cabecera> pedidosCabeceras) {
+		this.pedidosCabeceras = pedidosCabeceras;
+	}
+
+	public Pedidos_Cabecera addPedidosCabecera(Pedidos_Cabecera pedidosCabecera) {
+		getPedidosCabeceras().add(pedidosCabecera);
+		pedidosCabecera.setUsuario(this);
+
+		return pedidosCabecera;
+	}
+
+	public Pedidos_Cabecera removePedidosCabecera(Pedidos_Cabecera pedidosCabecera) {
+		getPedidosCabeceras().remove(pedidosCabecera);
+		pedidosCabecera.setUsuario(null);
+
+		return pedidosCabecera;
 	}
 
 }

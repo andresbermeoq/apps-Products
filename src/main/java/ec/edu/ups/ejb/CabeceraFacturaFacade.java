@@ -4,16 +4,18 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import ec.edu.ups.entidad.Factura_Detalle;
+import ec.edu.ups.entidad.Cabecera_Factura;
 
 @Stateless
-public class DetalleFacade extends AbstractFacade<Factura_Detalle> {
+public class CabeceraFacturaFacade extends AbstractFacade<Cabecera_Factura> {
+	
 
 	@PersistenceContext(unitName = "Practice-Products")
 	private EntityManager em;
 	
-	public DetalleFacade() {
-		super(Factura_Detalle.class);
+	public CabeceraFacturaFacade() {
+		super(Cabecera_Factura.class);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
