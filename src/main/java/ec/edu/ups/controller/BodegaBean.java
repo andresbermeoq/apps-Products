@@ -1,7 +1,9 @@
 package ec.edu.ups.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
@@ -23,6 +25,13 @@ public class BodegaBean implements Serializable {
 	@EJB
 	private BodegaFacade bodegaFacade;
 	
+	private List<Bodega> bodegas;
+	
+	@PostConstruct
+	public void init() {
+		setBodegas(bodegaFacade.findAll());
+	}
+	
 	public BodegaBean() {
 		
 	}
@@ -38,11 +47,16 @@ public class BodegaBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<Bodega> getBodegas() {
+		return bodegas;
+	}
+	public void setBodegas(List<Bodega> bodegas) {
+		this.bodegas = bodegas;
+	}
 	
-	
-	public String addBodega() {
+	public void addBodega() {
 		bodegaFacade.create(new Bodega(address, name));
-		return null;
 	}
 	
 	

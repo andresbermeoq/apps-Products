@@ -46,6 +46,17 @@ public class Cabecera_Factura implements Serializable {
 	public Cabecera_Factura() {
 	}
 
+	public Cabecera_Factura(Date fecha, BigDecimal iva, BigDecimal subtotal, BigDecimal total, Usuario usuario,
+			List<Factura_Detalle> facturaDetalles) {
+		super();
+		this.fecha = fecha;
+		this.iva = iva;
+		this.subtotal = subtotal;
+		this.total = total;
+		this.usuario = usuario;
+		this.facturaDetalles = facturaDetalles;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

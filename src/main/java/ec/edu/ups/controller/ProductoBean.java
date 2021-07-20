@@ -8,7 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
+import org.primefaces.event.RowEditEvent;
 
 import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.ProductoFacade;
@@ -38,13 +42,14 @@ public class ProductoBean implements Serializable {
 	private Bodega bodega;
 	
 	private List<Bodega> bodegas;
+	private List<Producto> productos;
 	
 	@PostConstruct
 	public void init() {
 		setBodegas(bodegaFacade.findAll());
+		setProductos(productoFacade.findAll());
 	}
-	
-	
+		
 	public ProductoFacade getProductoFacade() {
 		return productoFacade;
 	}
@@ -93,11 +98,25 @@ public class ProductoBean implements Serializable {
 	public void setIdBodega(String idBodega) {
 		this.idBodega = idBodega;
 	}
+	public List<Producto> getProductos() {
+		return productos;
+	}
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 	
-	public String addProduct() {
+	public void addProduct() {
 		bodega = bodegaFacade.find(Integer.valueOf(idBodega));
 		productoFacade.create(new Producto(categoryProduct, name, price, stock, bodega));
-		return null;
+		setProductos(productoFacade.findAll());
 	}
+	
+	public void onRowEdit(Producto productoUpdate) {
+		productoFacade.edit(productoUpdate);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo el Stock"));
+	}
+
+
+	
 
 }

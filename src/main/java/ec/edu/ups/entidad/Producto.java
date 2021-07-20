@@ -147,4 +147,10 @@ public class Producto implements Serializable {
 		this.bodega = bodega;
 	}
 
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", categoryProduct=" + categoryProduct + ", name=" + name + ", price=" + price
+				+ ", stock=" + stock + ", facturaDetalles=" + facturaDetalles + ", pedidosDetalles=" + pedidosDetalles
+				+ ", bodega=" + bodega + "]";
+	}
 }

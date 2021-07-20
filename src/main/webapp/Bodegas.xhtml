@@ -2,26 +2,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 	<title>Gestion de Bodegas</title>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 </h:head> 
 <body> 
-
-	<h1>Gestion de Bodegas</h1>
+	<div class="container">
+		<h1 class="display-3">Gestion de Bodegas</h1>
+		<h:form>
+			<div class="input-group">
+					<span class="input-group-text">Nombre:</span>
+					<p:inputText class="form-control" id="name" value="#{bodegaBean.name}" />
+					
+					<span class="input-group-text">Direccion:</span>
+					<p:inputText class="form-control" id="address" value="#{bodegaBean.address}" />
+					
+					<p:commandButton class="btn btn-outline-secondary" action="#{bodegaBean.addBodega()}" value="Crear Bodega" />
+					<br></br>
+			</div>
+		</h:form>
+		
+		<hr />
+		
+		<p:dataTable class="table-primary" value="#{bodegaBean.bodegas}" var="bodega">
+		
+			<p:column headerText="Nombre" >
+				<h:outputText value="#{bodega.name}" />
+			</p:column>
+			
+			<p:column headerText="Direccion" >
+				<h:outputText value="#{bodega.address}" />
+			</p:column>
+			
+			<p:column style="width:3rem;text-align: center">
+				<p:commandButton update="" oncomplete="PF('productDialog').show()"
+                                 icon="pi pi-search" title="View">
+                    <f:setPropertyActionListener value="#{product}"
+                                                 target="#{dtSelectionView.selectedProduct}"/>
+                </p:commandButton>
+			</p:column>
+			
+		</p:dataTable>
+	</div>
 	
-	<hr />
+	
 	<h:form>
-		<h:outputLabel value="Nombre: " />
-		<h:inputText id="name" value="#{bodegaBean.name}" />
-		<br></br>
-		
-		<h:outputLabel value="Direccion: " />
-		<h:inputText id="address" value="#{bodegaBean.address}" />
-		
-		<h:commandButton action="#{bodegaBean.addBodega()}" value="Crear Bodega" />
-		<br></br>
 	</h:form>
 
 </body> 

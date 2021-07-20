@@ -31,6 +31,12 @@ public class Factura_Detalle implements Serializable {
 	public Factura_Detalle() {
 	}
 
+	public Factura_Detalle(Cabecera_Factura cabeceraFactura, Producto producto) {
+		super();
+		this.cabeceraFactura = cabeceraFactura;
+		this.producto = producto;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

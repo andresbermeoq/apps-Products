@@ -14,9 +14,9 @@
 	
 	<h2>Seleccion del Cliente</h2>
 	
-	<h:selectOneMenu value="#{facturaBean.idUser}">
-		<f:selectItems value="#{facturaBean.usuarios}" var="u" itemValue="#{u.id}" itemLabel="#{u.name}"/>
-	</h:selectOneMenu>
+	<p:selectOneMenu value="#{facturaBean.idUser}">
+		<f:selectItems value="#{facturaCabeceraBean.usuarios}" var="u" itemValue="#{u.id}" itemLabel="#{u.name}"/>
+	</p:selectOneMenu>
 	<br></br>
 	
 	<h:outputLabel value="Fecha: " />
@@ -24,12 +24,7 @@
 	<br></br>
 	
 	<h2>Seleccion de los productos</h2>
-	
-	<h:outputLabel value="Fecha: " />
-	<h:outputLabel id="price" value="#{facturaBean.valueTotal}" />
-	<br></br>
-	
-	
+
 	<h:form>
 		<h5>Busqueda del Producto</h5>
 		
