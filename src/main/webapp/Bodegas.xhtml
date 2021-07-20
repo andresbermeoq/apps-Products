@@ -17,7 +17,7 @@
 <body> 
 	<div class="container">
 		<h1 class="display-3">Gestion de Bodegas</h1>
-		<h:form>
+		<h:form id="form">
 			<div class="input-group">
 					<span class="input-group-text">Nombre:</span>
 					<p:inputText class="form-control" id="name" value="#{bodegaBean.name}" />
@@ -25,37 +25,31 @@
 					<span class="input-group-text">Direccion:</span>
 					<p:inputText class="form-control" id="address" value="#{bodegaBean.address}" />
 					
-					<p:commandButton class="btn btn-outline-secondary" action="#{bodegaBean.addBodega()}" value="Crear Bodega" />
+					<p:commandButton class="btn btn-outline-secondary" action="#{bodegaBean.addBodega()}" update=":form:tableProductos" value="Crear Bodega" />
+					<a href="index.xhtml" class="btn btn-outline-secondary">Volver</a>
 					<br></br>
 			</div>
+			
+			<p:dataTable id="tableProductos" class="table-primary" value="#{bodegaBean.bodegas}" var="bodega">
+		
+				<p:column headerText="Nombre" >
+					<h:outputText value="#{bodega.name}" />
+				</p:column>
+				
+				<p:column headerText="Direccion" >
+					<h:outputText value="#{bodega.address}" />
+				</p:column>
+				
+				<p:column style="width:3rem;text-align: center">
+					<p:commandButton update="" oncomplete="PF('productDialog').show()"
+	                                 icon="pi pi-search" title="View">
+	                    <f:setPropertyActionListener value="#{product}"
+	                                                 target="#{dtSelectionView.selectedProduct}"/>
+	                </p:commandButton>
+				</p:column>
+			
+			</p:dataTable>
 		</h:form>
-		
-		<hr />
-		
-		<p:dataTable class="table-primary" value="#{bodegaBean.bodegas}" var="bodega">
-		
-			<p:column headerText="Nombre" >
-				<h:outputText value="#{bodega.name}" />
-			</p:column>
-			
-			<p:column headerText="Direccion" >
-				<h:outputText value="#{bodega.address}" />
-			</p:column>
-			
-			<p:column style="width:3rem;text-align: center">
-				<p:commandButton update="" oncomplete="PF('productDialog').show()"
-                                 icon="pi pi-search" title="View">
-                    <f:setPropertyActionListener value="#{product}"
-                                                 target="#{dtSelectionView.selectedProduct}"/>
-                </p:commandButton>
-			</p:column>
-			
-		</p:dataTable>
 	</div>
-	
-	
-	<h:form>
-	</h:form>
-
 </body> 
 </html>

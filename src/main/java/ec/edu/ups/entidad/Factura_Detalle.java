@@ -1,6 +1,8 @@
 package ec.edu.ups.entidad;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 
@@ -17,6 +19,11 @@ public class Factura_Detalle implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	private Integer cantidad;
+	
+	@Column(name="valor_unitario")
+	private BigDecimal valorUnitario;
 
 	//bi-directional many-to-one association to Cabecera_Factura
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -30,9 +37,12 @@ public class Factura_Detalle implements Serializable {
 
 	public Factura_Detalle() {
 	}
-
-	public Factura_Detalle(Cabecera_Factura cabeceraFactura, Producto producto) {
+	
+	public Factura_Detalle(Integer cantidad, BigDecimal valorUnitario, Cabecera_Factura cabeceraFactura,
+			Producto producto) {
 		super();
+		this.cantidad = cantidad;
+		this.valorUnitario = valorUnitario;
 		this.cabeceraFactura = cabeceraFactura;
 		this.producto = producto;
 	}
@@ -59,6 +69,22 @@ public class Factura_Detalle implements Serializable {
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 }

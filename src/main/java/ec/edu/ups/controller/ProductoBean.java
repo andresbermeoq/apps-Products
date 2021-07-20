@@ -115,8 +115,4 @@ public class ProductoBean implements Serializable {
 		productoFacade.edit(productoUpdate);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se Actualizo el Stock"));
 	}
-
-
-	
-
 }

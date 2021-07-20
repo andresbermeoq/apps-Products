@@ -20,11 +20,12 @@
 		<h1>Gestion de Productos</h1>
 	
 		<hr />
+		
 		<h:form id="form">
 			<div class="container">
 				<div class="row">
 					<div class="col-4">
-						<div class="card" style="width: 18rem;">
+						<div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 18rem;">
 							<div class="card-header">
 								Productos
 							</div>
@@ -51,6 +52,8 @@
 								<br />
 								
 								<h:commandButton class="btn btn-primary" action="#{productoBean.addProduct()}" value="Crear" />
+								&nbsp;
+								<a href="index.xhtml" class="btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</div>

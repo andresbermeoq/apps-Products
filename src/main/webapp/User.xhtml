@@ -2,47 +2,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 	<title>Usuario</title>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 </h:head> 
 <body> 
-	
-	<h1>Gestion de Usuarios</h1>
-	
-	<hr />
-	<h:form>
-		<h:outputLabel value="Nombre: " />
-		<h:inputText id="name" value="#{userBean.name}" />
-		<br></br>
-		
-		<h:outputLabel value="Apellido: " />
-		<h:inputText id="lastName" value="#{userBean.lastName}" />
-		<br></br>
-		
-		<h:outputLabel value="Direccion: " />
-		<h:inputText id="address" value="#{userBean.address}" />
-		<br></br>
-		
-		<h:outputLabel value="Cedula: " />
-		<h:inputText id="idCard" value="#{userBean.idCard}" />
-		<br></br>
-		
-		<h:outputLabel value="Email: " />
-		<h:inputText id="email" value="#{userBean.email}" />
-		<br></br>
-		
-		<h:outputLabel value="Rol: " />
-		<h:inputText id="role" value="#{userBean.role}" />
-		<br></br>
 
-		<h:commandButton action="#{userBean.addUser()}" value="Crear" />
+	<div class="container">
+		<h1 class="display-3">Gestion de Usuarios</h1>
+		<h:form>
+			<div class="container col-8 col-sm-3">
+				<div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 18rem;">
+					<div class="card-header">
+						Usuarios
+					</div>
+					<div class="card-body">
+						<div class="col-12">
+							<label for="nameInput" class="form-label">Nombre</label>
+							<h:inputText class="form-control" id="name" value="#{userBean.name}" />
+							
+							<label for="lastNameInput" class="form-label">Apellido</label>
+							<h:inputText class="form-control" id="lastName" value="#{userBean.lastName}" />
+							
+							<label for="addressInput" class="form-label">Direccion</label>
+							<h:inputText class="form-control" id="address" value="#{userBean.address}" />
+							
+							<label for="idCardInput" class="form-label">Cedula</label>
+							<h:inputText class="form-control" id="idCard" value="#{userBean.idCard}" />
+							
+							<label for="emailInput" class="form-label">Email</label>
+							<h:inputText class="form-control" id="email" value="#{userBean.email}" />
+							
+							<label for="roleInput" class="form-label">Rol</label>
+							<p:selectOneMenu class="form-select" value="#{userBean.role}" >
+								<f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+								<f:selectItem itemLabel="Empleado" itemValue="Empleado"/>
+								<f:selectItem itemLabel="Cliente" itemValue="Cliente"/>
+							</p:selectOneMenu>
+						</div>
+						<br />
+						
+						<h:commandButton class="btn btn-primary" action="#{userBean.addUser()}" value="Crear" />
+						&nbsp;
+						<a href="index.xhtml" class="btn btn-secondary">Volver</a>
+					</div>
+				</div>
+			</div>
+	
+			
+			
+			<br></br>
 		
-		<br></br>
 		
-		
-	</h:form>
+		</h:form>
+	
+	</div>
 
 </body> 
 </html>

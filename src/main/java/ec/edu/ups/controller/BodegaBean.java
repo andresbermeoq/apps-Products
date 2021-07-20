@@ -57,6 +57,7 @@ public class BodegaBean implements Serializable {
 	
 	public void addBodega() {
 		bodegaFacade.create(new Bodega(address, name));
+		setBodegas(bodegaFacade.findAll());
 	}
 	
 	

@@ -7,70 +7,119 @@
 
 <h:head>
 	<title>Facturacion</title>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 </h:head> 
 <body> 
 
-	<h1>Facturacion</h1>
-	
-	<h2>Seleccion del Cliente</h2>
-	
-	<p:selectOneMenu value="#{facturaBean.idUser}">
-		<f:selectItems value="#{facturaCabeceraBean.usuarios}" var="u" itemValue="#{u.id}" itemLabel="#{u.name}"/>
-	</p:selectOneMenu>
-	<br></br>
-	
-	<h:outputLabel value="Fecha: " />
-	<h:inputText id="date" value="#{facturaBean.fecha}" />
-	<br></br>
-	
-	<h2>Seleccion de los productos</h2>
-
-	<h:form>
-		<h5>Busqueda del Producto</h5>
-		
-		<p:inputText value="#{facturaBean.idProduct}" placeholder="Ingrese el producto"/>
-		<h:commandButton action="#{facturaBean.searchProduct()}" value="Buscar"/>
-		
-		<h:outputText value="#{facturaBean.productoList.name}" />
-		
-		<div class="card">
-		<h5>Seleccion de Productos</h5>
-		
-		<p:dataTable value="#{facturaBean.productosDetalles}" var="producto">
-		
-			<f:facet name="header" >
-				<div>
-					<span>Lista de Productos</span>
+	<h:form id="form">
+		<div class="container">
+			<h1 class="display-3">Facturacion</h1>
+			
+			<hr />
+			
+			<div class="container col-100 col-sm-10 shadow-lg p-3 mb-5 bg-body rounded">
+				<label for="userInput" class="form-label">Usuario</label>
+				<p:selectOneMenu class="form-select" value="#{facturaCabeceraBean.idUser}">
+					<f:selectItems value="#{facturaCabeceraBean.clientes}" var="c" itemLabel="#{c.name} #{c.lastName}" itemValue="#{c.id}"/>
+				</p:selectOneMenu>
+				
+				<label for="dateInput" class="form-label">Usuario</label>
+				<p:datePicker class="form-control" value="#{facturaCabeceraBean.fecha}"/>
+				
+				<hr />
+				
+				<label for="productsInput" class="form-label">Productos</label>
+				
+				
+				
+				
+				<div class="card">
+					<p:growl id="messages" showDetail="true"/>
+					
+					<p:toolbar>
+						<p:toolbarGroup>
+							<div class="input-group mb-3">
+								<p:selectOneMenu class="form-select" value="#{facturaCabeceraBean.idProduct}" filter="true" filterMatchMode="contains">
+									<f:selectItem itemLabel="Seleccione un Producto"/>
+									<f:selectItems value="#{facturaCabeceraBean.productos}" var="p" itemLabel="#{p.name}, #{p.bodega.name}" itemValue="#{p.id}"/>
+								</p:selectOneMenu>
+								<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.searchDetalle()}" value="Agregar"/>
+							</div>
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right">
+							<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.calculateFacture()}" value="Calculo"/>
+						</p:toolbarGroup>
+					</p:toolbar>
+					
+					<p:dataTable id="table" value="#{facturaCabeceraBean.productosSelected}" var="prod" editable="true">
+					
+						<p:column headerText="Nombre">
+							<h:outputText value="#{prod.name}" />
+						</p:column>
+						
+						<p:column headerText="Precio">
+							<h:outputText value="#{prod.price}" />
+						</p:column>
+						
+						<p:column headerText="Cantidad">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{facturaCabeceraBean.cantidad}" />
+								</f:facet>
+								
+								<f:facet name="input">
+									<p:inputText class="form-control" value="#{facturaCabeceraBean.cantidad}"/>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="Valor Unitario">
+							<h:outputText value="#{facturaCabeceraBean.unitario}" />
+						</p:column>
+						
+						<p:ajax event="rowEdit" listener="#{facturaCabeceraBean.onEditRow(prod)}" update=":form:table"/>
+						
+						<p:column style="width:6rem">
+	                		<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+	            		</p:column>
+	            		
+	            		<p:column style="width:6rem">
+	                		<p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" actionListener="#{facturaCabeceraBean.removeDetalle(prod)}">
+	                		</p:commandButton>
+	            		</p:column>
+	            	
+					</p:dataTable>
+					
+				
 				</div>
-			</f:facet>
-		
-			<p:column headerText="Nombre">
-				<h:outputText value="#{producto.name}"/>
-			</p:column>
-			
-			<p:column headerText="Bodega">
-				<h:outputText value="#{producto.bodega.name}"/>
-			</p:column>
-			
-			<p:column headerText="Precio">
-				<h:outputText value="#{producto.price}"/>
-			</p:column>
-			
-			<p:column headerText="Stock">
-				<h:outputText value="#{producto.stock}"/>
-			</p:column>
-		
-		</p:dataTable>
+				
+				
+				
+				<label for="productsInput" class="form-label">Subtotal</label>
+				<br />
+				<h:outputText class="form-label" value="#{facturaCabeceraBean.subTotal}" />
+				
+				<br />
+				
+				<label for="productsInput" class="form-label">IVA</label>
+				<br />
+				<h:outputText value="#{facturaCabeceraBean.iva}" />
+				
+				<br />
+				
+				<label for="productsInput" class="form-label">Total</label>
+				<br />
+				<h:outputText value="#{facturaCabeceraBean.total}" />
+
+			</div>
+		</div>
 	
-	</div>
-		
-		
-		
-		
 	</h:form>
-	
-	
-	
 	
 </body> 
 </html>
