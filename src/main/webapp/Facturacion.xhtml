@@ -46,7 +46,7 @@
 							<div class="input-group mb-3">
 								<p:selectOneMenu class="form-select" value="#{facturaCabeceraBean.idProduct}" filter="true" filterMatchMode="contains">
 									<f:selectItem itemLabel="Seleccione un Producto"/>
-									<f:selectItems value="#{facturaCabeceraBean.productos}" var="p" itemLabel="#{p.name}, #{p.bodega.name}" itemValue="#{p.id}"/>
+									<f:selectItems value="#{facturaCabeceraBean.productos}" var="p" itemLabel="#{p.name} -> #{p.bodega.name}" itemValue="#{p.id}"/>
 								</p:selectOneMenu>
 								<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.searchDetalle()}" value="Agregar"/>
 							</div>
@@ -69,11 +69,12 @@
 						<p:column headerText="Cantidad">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{facturaCabeceraBean.cantidad}" />
+									<h:outputText value="#{facturaCabeceraBean.detalle.cantidad}" />
 								</f:facet>
 								
 								<f:facet name="input">
-									<p:inputText class="form-control" value="#{facturaCabeceraBean.cantidad}"/>
+									<p:inputText class="form-control" value="#{facturaCabeceraBean.detalle.cantidad}" >
+									</p:inputText>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -82,40 +83,58 @@
 							<h:outputText value="#{facturaCabeceraBean.unitario}" />
 						</p:column>
 						
-						<p:ajax event="rowEdit" listener="#{facturaCabeceraBean.onEditRow(prod)}" update=":form:table"/>
+						<p:ajax event="rowEdit" listener="#{facturaCabeceraBean.onEditRow(prod)}" update=":form:tableDetalles"/>
+						<p:ajax event="rowEdit" listener="#{facturaCabeceraBean.calculateTotales()}" update=":form:sub :form:iva :form:tot"/>
 						
 						<p:column style="width:6rem">
 	                		<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
 	            		</p:column>
-	            		
-	            		<p:column style="width:6rem">
-	                		<p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" actionListener="#{facturaCabeceraBean.removeDetalle(prod)}">
-	                		</p:commandButton>
-	            		</p:column>
-	            	
 					</p:dataTable>
 					
-				
+					
+					<p:dataTable id="tableDetalles" value="#{facturaCabeceraBean.detalles}" var="det">
+						<p:column>
+							<h:outputText value="#{det.producto.name}" />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{det.producto.price}" />
+						</p:column>
+					
+						<p:column>
+							<h:outputText value="#{det.cantidad}" />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{det.valorUnitario}" />
+						</p:column>
+					</p:dataTable>
 				</div>
-				
-				
-				
-				<label for="productsInput" class="form-label">Subtotal</label>
-				<br />
-				<h:outputText class="form-label" value="#{facturaCabeceraBean.subTotal}" />
-				
-				<br />
-				
-				<label for="productsInput" class="form-label">IVA</label>
-				<br />
-				<h:outputText value="#{facturaCabeceraBean.iva}" />
-				
-				<br />
-				
-				<label for="productsInput" class="form-label">Total</label>
-				<br />
-				<h:outputText value="#{facturaCabeceraBean.total}" />
-
+				<hr/>
+				<div class="card">
+					<div class="card-header">
+						Resultados
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<span class="col">Subtotal</span>
+							<h:outputText id="sub" class="col form-label" value="#{facturaCabeceraBean.subTotal}" />
+						</div>
+						<hr/>
+						<div class="row">
+							<span class="col">IVA</span>
+							<h:outputText id="iva" class="col form-label" value="#{facturaCabeceraBean.iva}" />
+						</div>
+						<hr/>
+						<div class="row">
+							<span class="col">Total</span>
+							<h:outputText id="tot" class="col form-label" value="#{facturaCabeceraBean.total}" />
+						</div>
+					</div>
+					<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.addFactura()}" value="Crear Factura" />
+						&nbsp;
+					<a href="index.xhtml" class="btn btn-secondary">Volver</a>
+				</div>
 			</div>
 		</div>
 	

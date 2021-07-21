@@ -40,12 +40,12 @@ public class Cabecera_Factura implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Factura_Detalle
-	@OneToMany(mappedBy="cabeceraFactura")
+	@OneToMany(mappedBy="cabeceraFactura", cascade = CascadeType.PERSIST)
 	private List<Factura_Detalle> facturaDetalles;
 
 	public Cabecera_Factura() {
+		
 	}
-	
 	public Cabecera_Factura(Date fecha, BigDecimal iva, BigDecimal subtotal, BigDecimal total, Usuario usuario,
 			List<Factura_Detalle> facturaDetalles) {
 		super();
@@ -56,8 +56,7 @@ public class Cabecera_Factura implements Serializable {
 		this.usuario = usuario;
 		this.facturaDetalles = facturaDetalles;
 	}
-
-
+	
 	public Integer getId() {
 		return this.id;
 	}
