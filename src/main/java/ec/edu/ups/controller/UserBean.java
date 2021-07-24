@@ -23,6 +23,7 @@ public class UserBean implements Serializable {
 	private String lastName;
 	private String name;
 	private String role;
+	private String password;
 	
 	@EJB
 	private UserFacade userFacade;
@@ -86,10 +87,19 @@ public class UserBean implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	public String addUser() {
-		userFacade.create(new Usuario(address, email, idCard, lastName, name, role));
+		userFacade.create(new Usuario(address, email, idCard, lastName, name, role, "Activo", password));
 		return null;
 	}
+
+	
 	
 }

@@ -51,9 +51,6 @@
 								<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.searchDetalle()}" value="Agregar"/>
 							</div>
 						</p:toolbarGroup>
-						<p:toolbarGroup align="right">
-							<h:commandButton class="btn btn-primary" action="#{facturaCabeceraBean.calculateFacture()}" value="Calculo"/>
-						</p:toolbarGroup>
 					</p:toolbar>
 					
 					<p:dataTable id="table" value="#{facturaCabeceraBean.productosSelected}" var="prod" editable="true">

@@ -1,10 +1,15 @@
 package ec.edu.ups.entidad;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbDateFormat;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 
 
 /**
@@ -21,11 +26,17 @@ public class Pedidos_Cabecera implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="\"Estado\"")
-	private String estado;
+	@Column(name="\"Estado_actual\"")
+	@JsonbProperty(nillable = true)
+	private String estado_actual;
+
+	@Column(name="\"Estado_siguiente\"")
+	@JsonbTransient
+	private String estado_siguiente;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="\"Fecha\"")
+	@JsonbDateFormat(value = "dd-MM-YYYY hh:mm:ss")
 	private Date fecha;
 
 	@Column(name="\"IVA\"")
@@ -40,6 +51,7 @@ public class Pedidos_Cabecera implements Serializable {
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="\"id_Usuario\"")
+	@JsonbTransient
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Pedidos_Detalle
@@ -57,12 +69,20 @@ public class Pedidos_Cabecera implements Serializable {
 		this.id = id;
 	}
 
-	public String getEstado() {
-		return this.estado;
+	public String getEstado_actual() {
+		return estado_actual;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado_actual(String estado_actual) {
+		this.estado_actual = estado_actual;
+	}
+
+	public String getEstado_siguiente() {
+		return estado_siguiente;
+	}
+
+	public void setEstado_siguiente(String estado_siguiente) {
+		this.estado_siguiente = estado_siguiente;
 	}
 
 	public Date getFecha() {

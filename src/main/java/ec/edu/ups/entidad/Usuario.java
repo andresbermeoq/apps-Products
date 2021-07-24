@@ -1,6 +1,8 @@
 package ec.edu.ups.entidad;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -32,19 +34,26 @@ public class Usuario implements Serializable {
 	private String name;
 
 	private String role;
+	
+	private String estado;
+	
+	private String password;
 
 	//bi-directional many-to-one association to Cabecera_Factura
 	@OneToMany(mappedBy="usuario")
+	@JsonbTransient
 	private List<Cabecera_Factura> cabeceraFacturas;
 
 	//bi-directional many-to-one association to Pedidos_Cabecera
 	@OneToMany(mappedBy="usuario")
+	@JsonbTransient
 	private List<Pedidos_Cabecera> pedidosCabeceras;
 
 	public Usuario() {
 	}
 
-	public Usuario(String address, String email, String idCard, String lastName, String name, String role) {
+	public Usuario(String address, String email, String idCard, String lastName, String name, String role,
+			String estado, String password) {
 		super();
 		this.address = address;
 		this.email = email;
@@ -52,6 +61,20 @@ public class Usuario implements Serializable {
 		this.lastName = lastName;
 		this.name = name;
 		this.role = role;
+		this.estado = estado;
+		this.password = password;
+	}
+	
+	public Usuario(String address, String email, String idCard, String lastName, String name, String role,
+			String password) {
+		super();
+		this.address = address;
+		this.email = email;
+		this.idCard = idCard;
+		this.lastName = lastName;
+		this.name = name;
+		this.role = role;
+		this.password = password;
 	}
 
 	public Integer getId() {
@@ -110,6 +133,14 @@ public class Usuario implements Serializable {
 		this.role = role;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public List<Cabecera_Factura> getCabeceraFacturas() {
 		return this.cabeceraFacturas;
 	}
@@ -153,5 +184,22 @@ public class Usuario implements Serializable {
 
 		return pedidosCabecera;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", address=" + address + ", email=" + email + ", idCard=" + idCard + ", lastName="
+				+ lastName + ", name=" + name + ", role=" + role + ", estado=" + estado + ", password=" + password
+				+ ", cabeceraFacturas=" + cabeceraFacturas + ", pedidosCabeceras=" + pedidosCabeceras + "]";
+	}
+	
+	
 
 }
